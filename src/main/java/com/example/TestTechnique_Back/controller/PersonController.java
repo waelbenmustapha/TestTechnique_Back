@@ -26,6 +26,5 @@ public PersonController(PersonReopistory personReopistory)
 public ResponseEntity getAllPersons(){
 
     return new ResponseEntity<>(personReopistory.findAll(), HttpStatus.OK);
-
   }
 }
