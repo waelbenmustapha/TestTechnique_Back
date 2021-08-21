@@ -25,9 +25,9 @@ public class Person {
   private String situationFamiliale;
   private Integer nmbrenfants;
   private String email;
-  private Double phone1;
-  private Double phone2;
-  private Double mobile;
+  private String phone1;
+  private String phone2;
+  private String mobile;
   private String adresse;
   private String pays;
   private String ville;
