@@ -22,7 +22,6 @@ public PersonController(PersonReopistory personReopistory)
   this.personReopistory=personReopistory;
 }
 
-
   @GetMapping("/allpersons")
 public ResponseEntity getAllPersons(){
 
