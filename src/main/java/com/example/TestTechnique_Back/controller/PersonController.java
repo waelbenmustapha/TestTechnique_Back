@@ -35,7 +35,6 @@ public ResponseEntity getAllPersons(){
   public ResponseEntity AddPerson(@RequestBody Person person)
   {
     try {
-      System.out.println(person.getMobile());
         personReopistory.save(person);
 
         return new ResponseEntity<>(HttpStatus.OK);
