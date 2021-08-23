@@ -19,29 +19,26 @@ import com.example.TestTechnique_Back.repository.PersonReopistory;
 public class PersonController {
 
   private final PersonReopistory personReopistory;
-@Autowired
-public PersonController(PersonReopistory personReopistory)
-{
-  this.personReopistory=personReopistory;
-}
+
+  @Autowired
+  public PersonController(PersonReopistory personReopistory) {
+    this.personReopistory = personReopistory;
+  }
 
   @GetMapping("/allpersons")
-public ResponseEntity getAllPersons(){
+  public ResponseEntity getAllPersons() {
 
     return new ResponseEntity<>(personReopistory.findAll(), HttpStatus.OK);
   }
 
-  @PostMapping ("/addperson")
-  public ResponseEntity AddPerson(@RequestBody Person person)
-  {
+  @PostMapping("/addperson")
+  public ResponseEntity AddPerson(@RequestBody Person person) {
     try {
-        personReopistory.save(person);
+      personReopistory.save(person);
 
-        return new ResponseEntity<>(HttpStatus.OK);
-      }
-
-    catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed To Add person because : "+e);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed To Add person because : " + e);
     }
   }
 

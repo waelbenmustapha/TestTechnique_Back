@@ -19,34 +19,53 @@ import com.example.TestTechnique_Back.repository.RelationsRepository;
 @RestController
 @RequestMapping("/relations")
 public class RelationsController {
+
   private final RelationsRepository relationsRepository;
   private final PersonReopistory personReopistory;
+
   @Autowired
-  public RelationsController(RelationsRepository relationsRepository,PersonReopistory personReopistory)
-  {
-    this.relationsRepository=relationsRepository;
-    this.personReopistory=personReopistory;
+  public RelationsController(RelationsRepository relationsRepository, PersonReopistory personReopistory) {
+    this.relationsRepository = relationsRepository;
+    this.personReopistory = personReopistory;
   }
 
   @GetMapping("/all")
-  public ResponseEntity getall()
-  {
+  public ResponseEntity getall() {
     return new ResponseEntity<>(relationsRepository.findAll(), HttpStatus.OK);
   }
 
   @GetMapping("/specefic/{id}")
-  public ResponseEntity getall(@PathVariable Long id)
-  {
-    return new ResponseEntity<>(relationsRepository.findByPersonneId(id), HttpStatus.OK);
+  public ResponseEntity getall(@PathVariable Long id) {
+    try {
+      if (id != null) {
+        return new ResponseEntity<>(relationsRepository.findByPersonneId(id), HttpStatus.OK);
+      } else {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id Can't be empty");
+
+      }
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed To get person because : " + e);
+    }
+
   }
+
   @PostMapping("/add/{personid}/{relation}/{relatedid}")
-public ResponseEntity addRelation(@PathVariable("personid") Long personid,@PathVariable("relation") String relation,@PathVariable("relatedid") Long relatedid)
-  {
-    Person person = personReopistory.findById(personid).get();
-    Person relatedperson = personReopistory.findById(relatedid).get();
-    Relations newrelation = new Relations(null,person,relatedperson,relation);
-   relationsRepository.save(newrelation);
-    return new ResponseEntity<>("Added succefuly", HttpStatus.OK);
+  public ResponseEntity addRelation(@PathVariable("personid") Long personid, @PathVariable("relation") String relation,
+      @PathVariable("relatedid") Long relatedid) {
+    try {
+      if (personid != null && relation != null && relatedid != null) {
+        Person person = personReopistory.findById(personid).get();
+        Person relatedperson = personReopistory.findById(relatedid).get();
+        Relations newrelation = new Relations(null, person, relatedperson, relation);
+        relationsRepository.save(newrelation);
+        return new ResponseEntity<>("Added succefuly", HttpStatus.OK);
+      } else {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("All fields are required ");
+
+      }
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed To Add relation because : " + e);
+    }
 
   }
 }

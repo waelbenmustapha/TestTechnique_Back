@@ -13,14 +13,16 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class Relations {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-@OneToOne
+  @OneToOne
   private Person personne;
-@OneToOne
+  @OneToOne
   private Person relative;
   private String relation;
 
-  public Relations(){}
+  public Relations() {
+  }
 }

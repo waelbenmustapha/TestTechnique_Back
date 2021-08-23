@@ -37,6 +37,8 @@ public class Person {
   private String complementadresse;
   private String motCles;
   private String commentaire;
-  public Person(){}
+
+  public Person() {
+  }
 
 }
